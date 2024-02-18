@@ -1,0 +1,81 @@
+{
+    "offers": [
+        {
+            "id": "1",
+            "user": "Mohamed Ali",
+            "image": "/src/assets/user.jpg",
+            "comment": "Car repair price 1200 , Car repair price 1200 $",
+            "order_id": "2",
+            "contacts": {
+                "email": "mohamedali@gmail.com",
+                "phone": "01234569877"
+            }
+        },
+        {
+            "id": "2",
+            "user": "Mohamed Ali",
+            "image": "/src/assets/user.jpg",
+            "comment": "Car repair price 1200 , Car repair price 1200 $",
+            "order_id": "7",
+            "contacts": {
+                "email": "mohamedali@gmail.com",
+                "phone": "01234569877"
+            }
+        },
+        {
+            "id": "3",
+            "user": "Mohamed Ali",
+            "image": "/src/assets/user.jpg",
+            "comment": "Car repair price 1200 , Car repair price 1200 $",
+            "order_id": "4",
+            "contacts": {
+                "email": "mohamedali@gmail.com",
+                "phone": "01234569877"
+            }
+        },
+        {
+            "id": "4",
+            "user": "Mohamed Ali",
+            "image": "/src/assets/user.jpg",
+            "comment": "Car repair price 1200 , Car repair price 1200 $",
+            "order_id": "2",
+            "contacts": {
+                "email": "mohamedali@gmail.com",
+                "phone": "01234569877"
+            }
+        },
+        {
+            "id": "5",
+            "user": "Mohamed Ali",
+            "image": "/src/assets/user.jpg",
+            "comment": "Car repair price 1200 , Car repair price 1200 $",
+            "order_id": "3",
+            "contacts": {
+                "email": "mohamedali@gmail.com",
+                "phone": "01234569877"
+            }
+        },
+        {
+            "id": "6",
+            "user": "Mohamed Ali",
+            "image": "/src/assets/user.jpg",
+            "comment": "Car repair price 1200 , Car repair price 1200 $",
+            "order_id": "2",
+            "contacts": {
+                "email": "mohamedali@gmail.com",
+                "phone": "01234569877"
+            }
+        },
+        {
+            "id": "7",
+            "user": "Mohamed Ali",
+            "image": "/src/assets/user.jpg",
+            "comment": "Car repair price 1200 , Car repair price 1200 $",
+            "order_id": "1",
+            "contacts": {
+                "email": "mohamedali@gmail.com",
+                "phone": "01234569877"
+            }
+        }
+    ]
+}

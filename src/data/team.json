@@ -1,0 +1,84 @@
+{
+    "team": [
+        {
+            "id": 1,
+            "name": "Abdelrahman Ramadan",
+            "work": "Front End Developer",
+            "image": "src/assets/member1.jpg",
+            "social": {
+                "facebook": "http://facebook.com",
+                "linkedin": "http://linkedin.com"
+            }
+        },
+        {
+            "id": 2,
+            "name": "Mohamed Ali ",
+            "work": "UI/UX Designer",
+            "image": "src/assets/member1.jpg",
+            "social": {
+                "facebook": "http://facebook.com",
+                "linkedin": "http://linkedin.com"
+            }
+        },
+        {
+            "id": 3,
+            "name": "Abdelrahman Ramadan",
+            "work": "Front End Developer",
+            "image": "src/assets/member1.jpg",
+            "social": {
+                "facebook": "http://facebook.com",
+                "linkedin": "http://linkedin.com"
+            }
+        },
+        {
+            "id": 4,
+            "name": "Abdelrahman Ramadan",
+            "work": "Front End Developer",
+            "image": "src/assets/member1.jpg",
+            "social": {
+                "facebook": "http://facebook.com",
+                "linkedin": "http://linkedin.com"
+            }
+        },
+        {
+            "id": 5,
+            "name": "Abdelrahman Ramadan",
+            "work": "Front End Developer",
+            "image": "src/assets/member1.jpg",
+            "social": {
+                "facebook": "http://facebook.com",
+                "linkedin": "http://linkedin.com"
+            }
+        },
+        {
+            "id": 6,
+            "name": "Abdelrahman Ramadan",
+            "work": "Front End Developer",
+            "image": "src/assets/member1.jpg",
+            "social": {
+                "facebook": "http://facebook.com",
+                "linkedin": "http://linkedin.com"
+            }
+        },
+        {
+            "id": 7,
+            "name": "Abdelrahman Ramadan",
+            "work": "Front End Developer",
+            "image": "src/assets/member1.jpg",
+            "social": {
+                "facebook": "http://facebook.com",
+                "linkedin": "http://linkedin.com"
+            }
+        },
+        {
+            "id": 8,
+            "name": "Abdelrahman Ramadan",
+            "work": "Front End Developer",
+            "image": "src/assets/member1.jpg",
+            "social": {
+                "facebook": "http://facebook.com",
+                "linkedin": "http://linkedin.com"
+            }
+        }
+    ]
+}
