@@ -8,6 +8,8 @@ import Layout from "./pages/Layout"
 import ResetPass from "./pages/ResetPass"
 import Team from "./pages/Team"
 import Order from "./pages/Order"
+import About from "./pages/About"
+import Contact from "./pages/Contact"
 
 function App() {
 
@@ -16,6 +18,8 @@ function App() {
       { index: true, element: <Home /> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
+      { path: "/about", element: <About /> },
+      { path: "/contact", element: <Contact /> },
       { path: "/forgetPass", element: <ForgetPass /> },
       { path: "/resetPass", element: <ResetPass /> },
       { path: "/team", element: <Team /> },

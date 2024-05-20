@@ -1,74 +1,164 @@
 {
     "orders": [
         {
-            "id": "1",
-            "owner": "Mohamed Ali",
-            "title": "Want to fix my car",
-            "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            "image": "/src/assets/mg.jpg"
+            "id": 1,
+            "title": "Fix Laptop Screen",
+            "owner": "John Doe",
+            "desc": "Need to fix a cracked laptop screen.",
+            "image": "/src/assets/laptop.jpeg",
+            "category": "Electronics"
         },
         {
-            "id": "2",
-            "owner": "Mohamed Ali",
-            "title": "Want to fix my car",
-            "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            "image": "/src/assets/mg.jpg"
+            "id": 2,
+            "title": "Repair Sofa",
+            "owner": "Jane Smith",
+            "desc": "Cushions need re-stuffing and fabric repair.",
+            "image": "/src/assets/sofajpeg.jpeg",
+            "category": "Furniture"
         },
         {
-            "id": "3",
-            "owner": "Mohamed Ali",
-            "title": "Want to fix my car",
-            "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            "image": "/src/assets/mg.jpg"
+            "id": 3,
+            "title": "Fix Car Engine",
+            "owner": "Mike Johnson",
+            "desc": "Engine making a strange noise, needs diagnosis.",
+            "image": "/src/assets/sofajpeg.jpeg",
+            "category": "Automotive"
         },
         {
-            "id": "4",
-            "owner": "Mohamed Ali",
-            "title": "Want to fix my car",
-            "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            "image": "/src/assets/mg.jpg"
+            "id": 4,
+            "title": "Mend Jacket Zipper",
+            "owner": "Emily Davis",
+            "desc": "Zipper on my favorite jacket is broken.",
+            "image": "/src/assets/jacket.jpeg",
+            "category": "Clothing"
         },
         {
-            "id": "5",
-            "owner": "Mohamed Ali",
-            "title": "Want to fix my car",
-            "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            "image": "/src/assets/mg.jpg"
+            "id": 5,
+            "title": "Fix Washing Machine",
+            "owner": "Sarah Lee",
+            "desc": "Washing machine is leaking water.",
+            "image": "/src/assets/laptop.jpeg",
+            "category": "Electronics"
         },
         {
-            "id": "6",
-            "owner": "Mohamed Ali",
-            "title": "Want to fix my car",
-            "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            "image": "/src/assets/mg.jpg"
+            "id": 6,
+            "title": "Refinish Dining Table",
+            "owner": "David Brown",
+            "desc": "Dining table needs sanding and refinishing.",
+            "image": "/src/assets/sofajpeg.jpeg",
+            "category": "Furniture"
         },
         {
-            "id": "7",
-            "owner": "Mohamed Ali",
-            "title": "Want to fix my car",
-            "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            "image": "/src/assets/mg.jpg"
+            "id": 7,
+            "title": "Replace Car Battery",
+            "owner": "Laura Wilson",
+            "desc": "Car battery is dead and needs replacement.",
+            "image": "/src/assets/sofajpeg.jpeg",
+            "category": "Automotive"
         },
         {
-            "id": "8",
-            "owner": "Mohamed Ali",
-            "title": "Want to fix my car",
-            "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            "image": "/src/assets/mg.jpg"
+            "id": 8,
+            "title": "Hem Pair of Pants",
+            "owner": "Daniel Taylor",
+            "desc": "Pants are too long, need hemming.",
+            "image": "/src/assets/jacket.jpeg",
+            "category": "Clothing"
         },
         {
-            "id": "9",
-            "owner": "Mohamed Ali",
-            "title": "Want to fix my car",
-            "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            "image": "/src/assets/mg.jpg"
+            "id": 9,
+            "title": "Fix Refrigerator",
+            "owner": "Olivia Martinez",
+            "desc": "Refrigerator is not cooling properly.",
+            "image": "/src/assets/laptop.jpeg",
+            "category": "Electronics"
         },
         {
-            "id": "10",
-            "owner": "Mohamed Ali",
-            "title": "Want to fix my car",
-            "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            "image": "/src/assets/mg.jpg"
+            "id": 10,
+            "title": "Repair Wooden Chair",
+            "owner": "Sophia Anderson",
+            "desc": "Leg of wooden chair is broken.",
+            "image": "/src/assets/sofajpeg.jpeg",
+            "category": "Furniture"
+        },
+        {
+            "id": 11,
+            "title": "Fix Motorcycle Brake",
+            "owner": "James Thomas",
+            "desc": "Brake lever on motorcycle is loose.",
+            "image": "/src/assets/sofajpeg.jpeg",
+            "category": "Automotive"
+        },
+        {
+            "id": 12,
+            "title": "Alter Dress Size",
+            "owner": "Mia Garcia",
+            "desc": "Dress is too large, needs alteration.",
+            "image": "/src/assets/jacket.jpeg",
+            "category": "Clothing"
+        },
+        {
+            "id": 13,
+            "title": "Repair Oven",
+            "owner": "Charlotte Martinez",
+            "desc": "Oven is not heating up.",
+            "image": "/src/assets/laptop.jpeg",
+            "category": "Electronics"
+        },
+        {
+            "id": 14,
+            "title": "Fix Bed Frame",
+            "owner": "Benjamin Lopez",
+            "desc": "Bed frame is creaking and needs fixing.",
+            "image": "/src/assets/sofajpeg.jpeg",
+            "category": "Furniture"
+        },
+        {
+            "id": 15,
+            "title": "Fix Flat Tire",
+            "owner": "Henry Clark",
+            "desc": "Need help fixing a flat tire on my car.",
+            "image": "/src/assets/sofajpeg.jpeg",
+            "category": "Automotive"
+        },
+        {
+            "id": 16,
+            "title": "Shorten Curtains",
+            "owner": "Amelia Lewis",
+            "desc": "Curtains are too long and need shortening.",
+            "image": "/src/assets/jacket.jpeg",
+            "category": "Clothing"
+        },
+        {
+            "id": 17,
+            "title": "Fix Coffee Maker",
+            "owner": "Ethan Walker",
+            "desc": "Coffee maker is not working.",
+            "image": "/src/assets/laptop.jpeg",
+            "category": "Electronics"
+        },
+        {
+            "id": 18,
+            "title": "Repair Bookshelf",
+            "owner": "Isabella Young",
+            "desc": "One of the shelves is loose.",
+            "image": "/src/assets/sofajpeg.jpeg",
+            "category": "Furniture"
+        },
+        {
+            "id": 19,
+            "title": "Fix Car AC",
+            "owner": "Mason Hall",
+            "desc": "Car AC is not blowing cold air.",
+            "image": "/src/assets/sofajpeg.jpeg",
+            "category": "Automotive"
+        },
+        {
+            "id": 20,
+            "title": "Patch Torn Shirt",
+            "owner": "Ava King",
+            "desc": "Shirt has a small tear that needs patching.",
+            "image": "/src/assets/jacket.jpeg",
+            "category": "Clothing"
         }
     ]
 }

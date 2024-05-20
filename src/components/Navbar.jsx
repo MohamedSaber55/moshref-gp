@@ -20,7 +20,8 @@ const Navbar = () => {
         <nav className="shadow h-16 relative z-50">
             <div className="h-full container flex justify-between items-center bg-white">
                 <div className="logo">
-                    <Link to={"/"}>
+                    <Link to={"/"} className="flex items-center justify-center gap-1">
+                        <img src="/logo-main.png" alt="Logo" className="w-14 h-auto" />
                         <h1 className="text-3xl font-bold text-main">Logo</h1>
                     </Link>
                 </div>
