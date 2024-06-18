@@ -9,17 +9,14 @@ const axiosInstance = axios.create({
 });
 
 const request = async (endpoint, method = 'GET', body) => {
-    console.log(body);
     try {
         const response = await axiosInstance({
             url: endpoint,
             method,
             body,
         });
-        console.log(response);
         return response.data;
     } catch (error) {
-        console.log(error);
         if (error.response && error.response.data) {
             throw new Error(error.response.data.message || 'Network response was not ok');
         } else {

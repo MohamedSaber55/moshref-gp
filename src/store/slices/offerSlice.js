@@ -17,10 +17,8 @@ export const getOffers = createAsyncThunk(
     async ({ postId }, { rejectWithValue }) => {
         try {
             const { data } = await axios.get(`${baseUrl}/Offer/GetAllOffersOfPost/${postId}`, configWithToken())
-            console.log(data);
             return data
         } catch (error) {
-            console.log(error.response);
             notify('Failed to fetch offers', 'error');
             return rejectWithValue(error.response.data);
         }
@@ -36,7 +34,6 @@ export const addOffer = createAsyncThunk('offers/add', async ({ body }, { reject
         notify('offer added successfully', 'success');
         return data
     } catch (error) {
-        console.log(error.response);
         notify('Failed to add offer', 'error');
         return rejectWithValue(error.response.data);
     }

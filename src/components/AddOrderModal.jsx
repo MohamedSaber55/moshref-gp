@@ -13,7 +13,6 @@ const AddOrderModal = ({ onClose }) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const dispatch = useDispatch();
     const state = useSelector(state => state.post);
-    console.log(state);
     const navigate = useNavigate();
 
     const handleImageChange = (event) => {
@@ -54,7 +53,6 @@ const AddOrderModal = ({ onClose }) => {
                 dispatch(getPosts())
                 onClose();
             }
-            console.log(values);
         }
     });
 

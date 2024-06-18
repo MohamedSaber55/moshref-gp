@@ -28,7 +28,6 @@ const ConfirmEmail = () => {
                     navigate('/login');
                 }
             } catch (error) {
-                console.error('Error confirming email:', error);
             }
         }
     });

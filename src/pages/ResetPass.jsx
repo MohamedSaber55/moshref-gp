@@ -32,7 +32,6 @@ const ResetPass = () => {
         },
         validationSchema,
         onSubmit: async (values) => {
-            console.log(values);
         },
     });
 

@@ -22,11 +22,9 @@ export const addPost = createAsyncThunk("post/addPost", async (body, { rejectWit
 
         // Axios automatically sets the Content-Type header to multipart/form-data when sending FormData
         const { data } = await axios.post(`${baseUrl}/Post/AddPost`, formData, configWithToken());
-        console.log(data);
         notify('Post added successfully', 'success');
         return data;
     } catch (error) {
-        console.log(error.response);
         notify('Failed to add post', 'error');
         return rejectWithValue(error.response.data);
     }
@@ -35,7 +33,6 @@ export const addPost = createAsyncThunk("post/addPost", async (body, { rejectWit
 export const searchPostWithTitle = createAsyncThunk("post/searchPostWithTitle", async ({ title }, { rejectWithValue }) => {
     try {
         const { data } = await axios.get(`${baseUrl}/Post/SearchWithTitle/${title}`, configWithToken());
-        console.log(data);
         return data;
     } catch (error) {
         notify('Failed to fetch post', 'error');

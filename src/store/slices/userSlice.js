@@ -18,10 +18,7 @@ export const register = createAsyncThunk("user/register", async (body, { rejectW
         formData.append('RegisteredAs', body.RegisteredAs);
         formData.append('UserName', body.UserName);
 
-        // Log the FormData object for debugging
-        for (let pair of formData.entries()) {
-            console.log(`${pair[0]}: ${pair[1]}`);
-        }
+
         const { data } = await axios.post(`${baseUrl}/Account/Register`, formData);
         if (data == "Check your email to get Confirm code") {
             notify('Now, Check your Email', 'success')
@@ -32,10 +29,8 @@ export const register = createAsyncThunk("user/register", async (body, { rejectW
         if (data == "UserName Already Taken") {
             notify('UserName Already Taken', 'error')
         }
-        console.log(data);
         return data;
     } catch (error) {
-        console.log(error.response);
         // return error.response.data;
         return rejectWithValue(error.response.data);
     }
@@ -52,10 +47,8 @@ export const confirmEmail = createAsyncThunk("user/confirmEmail ", async (body, 
         if (data == "Wrong Code Entered") {
             notify('Wrong Code Entered', 'error')
         }
-        console.log(data);
         return data;
     } catch (error) {
-        console.log(error.response);
         return rejectWithValue(error.response.data);
     }
 });
@@ -65,9 +58,6 @@ export const login = createAsyncThunk("user/login", async (body, { rejectWithVal
         formData.append('Email', body.email);
         formData.append('Password', body.password);
 
-        for (let pair of formData.entries()) {
-            console.log(`${pair[0]}: ${pair[1]}`);
-        }
         const { data } = await axios.post(`${baseUrl}/Account/Login`, formData);
         if (data.token) {
             localStorage.setItem("moshToken", data.token)
@@ -85,21 +75,17 @@ export const login = createAsyncThunk("user/login", async (body, { rejectWithVal
         }
         return data;
     } catch (error) {
-        console.log(error);
         return rejectWithValue(error.response.data);
     }
 });
 export const forgetPass = createAsyncThunk("user/forgetPass", async (email, { rejectWithValue }) => {
-    console.log(email);
     try {
         const { data } = await axios.get(`${baseUrl}/Account/ForgetPassword/${email}`);
-        console.log(data);
         if (data.includes('Check your email to get Reset Your Password')) {
             notify(data, "success")
         }
         return data;
     } catch (error) {
-        console.log(error.response);
         if (error?.response?.data.includes("There is no Account with Email")) {
             notify(error?.response?.data, "error")
         }
@@ -107,16 +93,13 @@ export const forgetPass = createAsyncThunk("user/forgetPass", async (email, { re
     }
 });
 export const resetPass = createAsyncThunk("user/resetPass", async (email, { rejectWithValue }) => {
-    console.log(email);
     try {
         const { data } = await axios.get(`${baseUrl}/Account/ResetPassword`);
-        console.log(data);
         if (data.includes('Check your email to get Reset Your Password')) {
             notify(data, "success")
         }
         return data;
     } catch (error) {
-        console.log(error.response);
         if (error?.response?.data.includes("Error Code Entered")) {
             notify(error?.response?.data, "error")
         }
