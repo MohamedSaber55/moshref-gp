@@ -1,71 +1,206 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import axios from 'axios'
-// import { baseUrl } from '../../utils/baseUrl'
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { baseUrl } from "../../utils/baseUrl";
+const notify = (msg, type) => toast[type](msg);
 
 
-export const login = createAsyncThunk("login", async (userData) => {
+export const register = createAsyncThunk("user/register", async (body, { rejectWithValue }) => {
     try {
-        const { data } = await axios.post(`https://localhost:3000/auth/login`, userData)
-        return data
+        // Create a FormData object and append each field
+        const formData = new FormData();
+        formData.append('ConfirmPassword', body.ConfirmPassword);
+        formData.append('Email', body.Email);
+        formData.append('FName', body.FName);
+        formData.append('LName', body.LName);
+        formData.append('Password', body.Password);
+        formData.append('PhoneNumber', body.PhoneNumber);
+        formData.append('RegisteredAs', body.RegisteredAs);
+        formData.append('UserName', body.UserName);
+
+        // Log the FormData object for debugging
+        for (let pair of formData.entries()) {
+            console.log(`${pair[0]}: ${pair[1]}`);
+        }
+        const { data } = await axios.post(`${baseUrl}/Account/Register`, formData);
+        if (data == "Check your email to get Confirm code") {
+            notify('Now, Check your Email', 'success')
+        }
+        if (data == "There is Already an Account Created with this Email") {
+            notify('There is Already an Account Created with this Email', 'error')
+        }
+        if (data == "UserName Already Taken") {
+            notify('UserName Already Taken', 'error')
+        }
+        console.log(data);
+        return data;
     } catch (error) {
-        return error.response.data
+        console.log(error.response);
+        // return error.response.data;
+        return rejectWithValue(error.response.data);
     }
-})
+});
+export const confirmEmail = createAsyncThunk("user/confirmEmail ", async (body, { rejectWithValue }) => {
+    try {
+        const formData = new FormData();
+        formData.append('code', body.code);
+        formData.append('Email', body.Email);
+        const { data } = await axios.post(`${baseUrl}/Account/ConfirmEmail`, formData);
+        if (data == "Check your email to get Confirm code") {
+            notify('Now, Check your Email', 'success')
+        }
+        if (data == "Wrong Code Entered") {
+            notify('Wrong Code Entered', 'error')
+        }
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.log(error.response);
+        return rejectWithValue(error.response.data);
+    }
+});
+export const login = createAsyncThunk("user/login", async (body, { rejectWithValue }) => {
+    try {
+        const formData = new FormData();
+        formData.append('Email', body.email);
+        formData.append('Password', body.password);
 
-export const logout = createAsyncThunk("logout", () => {
-    localStorage.removeItem("dashToken")
-})
-
+        for (let pair of formData.entries()) {
+            console.log(`${pair[0]}: ${pair[1]}`);
+        }
+        const { data } = await axios.post(`${baseUrl}/Account/Login`, formData);
+        if (data.token) {
+            localStorage.setItem("moshToken", data.token)
+            localStorage.setItem("moshProfileId", data.profileId)
+            localStorage.setItem("moshUserId", data.userId)
+            localStorage.setItem("moshRole", data.roles[0])
+        }
+        if (typeof data === 'string') {
+            if (data.includes("There is no Account with Email")) {
+                notify('There is no Account with Email', 'error')
+            }
+            if (data.includes("Wrong Password!")) {
+                notify('Wrong Password!', 'error')
+            }
+        }
+        return data;
+    } catch (error) {
+        console.log(error);
+        return rejectWithValue(error.response.data);
+    }
+});
+export const forgetPass = createAsyncThunk("user/forgetPass", async (email, { rejectWithValue }) => {
+    console.log(email);
+    try {
+        const { data } = await axios.get(`${baseUrl}/Account/ForgetPassword/${email}`);
+        console.log(data);
+        if (data.includes('Check your email to get Reset Your Password')) {
+            notify(data, "success")
+        }
+        return data;
+    } catch (error) {
+        console.log(error.response);
+        if (error?.response?.data.includes("There is no Account with Email")) {
+            notify(error?.response?.data, "error")
+        }
+        return rejectWithValue(error.response.data);
+    }
+});
+export const resetPass = createAsyncThunk("user/resetPass", async (email, { rejectWithValue }) => {
+    console.log(email);
+    try {
+        const { data } = await axios.get(`${baseUrl}/Account/ResetPassword`);
+        console.log(data);
+        if (data.includes('Check your email to get Reset Your Password')) {
+            notify(data, "success")
+        }
+        return data;
+    } catch (error) {
+        console.log(error.response);
+        if (error?.response?.data.includes("Error Code Entered")) {
+            notify(error?.response?.data, "error")
+        }
+        return rejectWithValue(error.response.data);
+    }
+});
 
 const initialState = {
     message: "",
-    status: "",
-    status_code: "",
-    data: {},
-    token: localStorage.getItem("dashToken") || null,
+    role: localStorage.getItem("moshRole") || null,
+    users: [],
     loading: false,
-    error: "",
-}
+    user: null,
+    userId: localStorage.getItem("moshUserId") || null,
+    profileId: localStorage.getItem("moshProfileId") || null,
+    token: localStorage.getItem("moshToken") || null,
+    error: null,
+    isAuthenticated: null,
+};
 
-const usersSlice = createSlice({
-    name: "users",
+const userSlice = createSlice({
+    name: "user",
     initialState,
+    reducers: {
+        logout: (state) => {
+            state.user = null;
+            state.token = null;
+            localStorage.removeItem("moshToken")
+        },
+    },
     extraReducers: (builder) => {
         builder
-            // ---------------------------------- login ---------------------------------
-            .addCase(login.pending, (state) => {
-                state.loading = true
+            // -------------------------------------------------------------
+            .addCase(register.pending, (state) => {
+                state.loading = true;
+                state.error = null;
             })
-            .addCase(login.fulfilled, (state, { payload }) => {
-                state.loading = false
-                if (payload.error) {
-                    state.error = payload.error
-                } else {
-                    state.token = payload.data.token
-                    localStorage.setItem("dashToken", payload.data.token)
-                    state.data = payload.data
-                    state.message = payload.message
-                    state.statusCode = payload.status_code
-                    state.status = payload.status
+            .addCase(register.fulfilled, (state, action) => {
+                if (action.payload?.errors?.length > 0) {
+                    state.error = action.payload.errors
                 }
+                if (action.payload == "User with this email already exists.") {
+                    state.error = action.payload
+                }
+                state.loading = false;
+                state.message = action.payload;
+                state.user = action.payload.user;
+                state.token = localStorage.getItem("moshToken") || action.payload.token;
             })
-            .addCase(login.rejected, (state, { payload }) => {
-                state.loading = false
-                state.error = payload
+            .addCase(register.rejected, (state, action) => {
+                state.loading = false;
+                if (action.payload == "User with this email already exists.") {
+                    state.error = action.payload
+                }
+                state.error = action.payload
             })
-            // ---------------------------------- logout ---------------------------------
-            .addCase(logout.pending, (state) => {
-                state.loading = true
+            // --------------------------------login-----------------------------
+            .addCase(login.pending, (state) => {
+                state.loading = true;
+                state.error = null;
             })
-            .addCase(logout.fulfilled, (state) => {
-                state.loading = false
-                state.token = null
+            .addCase(login.fulfilled, (state, action) => {
+                if (typeof data === 'string') {
+                    if (action.payload == "Wrong Password!") {
+                        state.error = action.payload
+                    }
+                    if (action.payload.includes("There is no Account with Email ")) {
+                        state.error = action.payload
+                    }
+                }
+                state.loading = false;
+                state.userId = action.payload.userId;
+                state.profileId = action.payload.profileId;
+                state.token = action.payload.token;
+                state.role = action.payload.roles
             })
-            .addCase(logout.rejected, (state, { payload }) => {
-                state.loading = false
-                state.error = payload
+            .addCase(login.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload || action.error.message;
             })
-    }
-})
+        // -------------------------------------------------------------
+    },
+});
 
-export default usersSlice.reducer
+export const { logout } = userSlice.actions;
+
+export default userSlice.reducer;

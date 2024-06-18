@@ -21,7 +21,7 @@
             "title": "Fix Car Engine",
             "owner": "Mike Johnson",
             "desc": "Engine making a strange noise, needs diagnosis.",
-            "image": "/src/assets/sofajpeg.jpeg",
+            "image": "/src/assets/mg.jpg",
             "category": "Automotive"
         },
         {
@@ -53,7 +53,7 @@
             "title": "Replace Car Battery",
             "owner": "Laura Wilson",
             "desc": "Car battery is dead and needs replacement.",
-            "image": "/src/assets/sofajpeg.jpeg",
+            "image": "/src/assets/mg.jpg",
             "category": "Automotive"
         },
         {
@@ -85,7 +85,7 @@
             "title": "Fix Motorcycle Brake",
             "owner": "James Thomas",
             "desc": "Brake lever on motorcycle is loose.",
-            "image": "/src/assets/sofajpeg.jpeg",
+            "image": "/src/assets/mg.jpg",
             "category": "Automotive"
         },
         {
@@ -117,7 +117,7 @@
             "title": "Fix Flat Tire",
             "owner": "Henry Clark",
             "desc": "Need help fixing a flat tire on my car.",
-            "image": "/src/assets/sofajpeg.jpeg",
+            "image": "/src/assets/mg.jpg",
             "category": "Automotive"
         },
         {
@@ -149,7 +149,7 @@
             "title": "Fix Car AC",
             "owner": "Mason Hall",
             "desc": "Car AC is not blowing cold air.",
-            "image": "/src/assets/sofajpeg.jpeg",
+            "image": "/src/assets/mg.jpg",
             "category": "Automotive"
         },
         {

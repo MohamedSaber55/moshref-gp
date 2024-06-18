@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import { BsEye, BsEyeSlash } from 'react-icons/bs'
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { object, string } from 'yup'
 import { useFormik } from 'formik'
 import { TbLoader } from 'react-icons/tb'
+import { login } from '../store/slices/userSlice'
 
 const Login = () => {
     const [passType, setPassType] = useState(true)
     const state = useSelector(state => state.user)
-
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const validationSchema = object({
         email: string().email().required(),
         password: string().matches(/^(?=.*[A-Za-z])(?=.*\d)*([@$!%*#?&])*[A-Za-z\d@$!%*#?&.]{6,32}$/, "password have to be 6 : 32 character and can contain special characters").required(),
@@ -23,10 +25,14 @@ const Login = () => {
         validationSchema,
         onSubmit: async (values) => {
             console.log(values);
+            const result = await dispatch(login(values))
+            if (login.fulfilled.match(result)) {
+                navigate('/');
+            }
         }
     })
 
-    // if (state.token) return <Navigate to="/" replace={true} />
+    if (state.token) return <Navigate to="/" replace={true} />
 
     return (
         <div className='flex justify-center items-center flex-col h-screen'>

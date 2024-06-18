@@ -1,0 +1,1 @@
+export const baseUrl = "https://recycling.runasp.net/api"

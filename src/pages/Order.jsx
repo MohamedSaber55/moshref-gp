@@ -1,84 +1,140 @@
 import { useParams } from "react-router-dom"
-import { orders } from "./../data/orders.json"
-import { offers } from "./../data/offers.json"
 import { AiOutlineMail, AiOutlinePhone } from "react-icons/ai"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { getPost } from "../store/slices/postSlice"
+import { addOffer, getOffers } from "../store/slices/offerSlice"
+import moment from "moment"
+import Pagination from "../components/Pagination"
+const UserId = localStorage.getItem("moshUserId")
+
 const Order = () => {
     const params = useParams()
-    const orderId = parseInt(params.orderId);
-    const order = orders?.find(order => order.id === orderId)
-    const comments = offers.filter(offer => offer.order_id == orderId)
-    const [comment, setComment] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
+    const orderId = params.orderId
+    const dispatch = useDispatch()
+    const state = useSelector(state => state.post)
+    const offersState = useSelector(state => state.offer)
+    const offers = offersState.offers
+    const { post, loading } = state
+    const [comment, setComment] = useState("")
+    // pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    // eslint-disable-next-line no-unused-vars
+    const [itemsPerPage, setItemsPerPage] = useState(5);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = offers?.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPageCount = Math.ceil(offers?.length / itemsPerPage);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const newOffer = {
-            id: offers.length + 1,
-            order_id: orderId,
-            comment: comment,
-            contacts: {
-                email: email,
-                phone: phone
-            }
-        };
-        console.log("New Offer:", newOffer);
-        // You can add logic here to send the new offer to the server or update the state accordingly
-        // For simplicity, let's just log the new offer
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1);
     };
 
-    if (!order) {
-        return (
-            <div className="container mx-auto mt-8">
-                <div className="text-center text-gray-600 text-lg">Order not found.</div>
-            </div>
-        );
+    const handlePrevPage = () => {
+        setCurrentPage(currentPage - 1);
+    };
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    useEffect(() => {
+        dispatch(getPost(orderId))
+        dispatch(getOffers({ postId: orderId }))
+    }, [dispatch, orderId])
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const body = {
+            Description: comment,
+            ClientId: UserId,
+            PostId: orderId
+        }
+        dispatch(addOffer({ body })).then(() => dispatch(getOffers({ postId: orderId }))
+        )
     }
 
+    if (loading) {
+        return (
+            <div className="container mx-auto mt-8 flex flex-col items-center justify-center h-screen">
+                <div className="spinner-border animate-spin inline-block w-12 h-12 border-t-4 bg-gray-200 rounded-full border-main spin" role="status"></div>
+                <div className="text-center text-gray-600 text-lg mt-4">Loading...</div>
+            </div>
+        )
+    }
+
+    if (!post) {
+        return (
+            <div className="container mx-auto mt-8 flex flex-col items-center justify-center h-screen">
+                <div className="text-center text-gray-600 text-lg bg-red-100 p-4 rounded-lg shadow-lg">
+                    Order not found.
+                </div>
+            </div>
+        )
+    }
     return (
         <div>
             <div className="container py-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 pb-5 border-b">
                     <div className="image md:col-span-1">
-                        <img src={order.image} alt="Order Image" className="w-full h-80 object-contain border rounded-md" />
+                        <img src={`data:image/png;base64,${post.image}`} alt="Order Image" className="w-full max-h-96 object-contain border rounded-md" />
                     </div>
                     <div className="content md:col-span-1 space-y-2">
                         <div className="">
-                            <span className="bg-main/30 py-1 px-2 rounded-3xl">{order.category}</span>
+                            <span className="bg-main/30 py-1 px-2 rounded-3xl">{post.categoryName}</span>
                         </div>
-                        <h2 className="text-2xl font-medium">{order.title}</h2>
+                        <h2 className="text-2xl font-medium">{post.title}</h2>
                         <p>
                             <span className="font-medium">Description: </span>
-                            <span className="leading-7">{order.desc}</span>
+                            <span className="leading-7">{post.description}</span>
                         </p>
                         <div className="owner flex items-center gap-1">
                             <span className="font-medium">Owner: </span>
-                            <span>{order.owner}</span>
+                            <span>{post.fullName}</span>
+                        </div>
+                        <div className="availability flex items-center gap-1">
+                            <span className="font-medium">Available: </span>
+                            <span>{post.isAvailable ? "Yes" : "No"}</span>
+                        </div>
+                        <div className="created-at flex items-center gap-1">
+                            <span className="font-medium">Created At: </span>
+                            <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                         </div>
                     </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="offers">
-                        <h2 className="text-2xl font-semibold mb-5">Offers </h2>
-                        <div className="comments grid gap-2">
-                            {comments.length > 0 ? comments.map(comment => (
-                                <div key={comment.id} className="comment rounded-xl flex items-end gap-2 w-full">
-                                    <div className="comment-content border p-2 rounded-md border-main/50 space-y-2 w-full mx-1">
-                                        <div className="user-image rounded-full flex gap-2 items-center">
-                                            <img src={comment.image} className="h-10 object-cover w-10  rounded-full" alt="user Image" />
-                                            <h5 className="text-lg font-medium">{comment.user}</h5>
-                                        </div>
-                                        <p>{comment.comment}</p>
-                                        <p className="flex items-center text-sm gap-2"><AiOutlineMail size={18} /> {comment.contacts?.email}</p>
-                                        <p className="flex items-center text-sm gap-2"><AiOutlinePhone size={18} /> {comment.contacts?.phone} </p>
-                                        <div className="actions flex gap-2 items-center">
-                                            <button className="p-2 rounded-md text-sm text-white bg-main/80 green-500 border border-main">Accept</button>
-                                            <button className="p-2 rounded-md text-sm text-white bg-red-500 border border-red-800">Refuse</button>
+                        <h2 className="text-2xl font-semibold mb-5">Offers</h2>
+                        <div className="offers-list grid  gap-2">
+                            {currentItems.length > 0 ? currentItems.map((offer, i) => (
+                                <>
+                                    <div key={i} className="offer rounded-xl flex items-end gap-2 w-full">
+                                        <div className="offer-content border p-2 rounded-md border-main/50 w-full mx-1 flex justify-between items-center">
+                                            <div className="content space-y-1">
+                                                <div className="offer-description rounded-full flex gap-2 items-center">
+                                                    <h5 className="text-lg font-medium">{offer.description}</h5>
+                                                </div>
+                                                <p>{moment(offer.addedAt).fromNow()}</p>
+                                                <p className="flex items-center text-sm gap-2"><AiOutlineMail size={18} /> {offer.email}</p>
+                                                <p className="flex items-center text-sm gap-2"><AiOutlinePhone size={18} /> {offer.phoneNumber}</p>
+                                            </div>
+                                            <div className="actions flex gap-2 items-center">
+                                                <button className="p-2 rounded-md text-sm text-white bg-main/80 border border-main">Accept</button>
+                                                <button className="p-2 rounded-md text-sm text-white bg-red-500 border border-red-800">Refuse</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </>
                             )) : <div>No Offers yet!</div>}
+                        </div>
+                        <div className="py-10 flex justify-center">
+                            <Pagination
+                                currentPage={currentPage}
+                                totalPageCount={totalPageCount}
+                                onPageChange={handlePageChange}
+                                onNextPage={handleNextPage}
+                                onPrevPage={handlePrevPage}
+                            />
                         </div>
                     </div>
                     <div className="">
@@ -94,28 +150,6 @@ const Order = () => {
                                         onChange={(e) => setComment(e.target.value)}
                                         required
                                     ></textarea>
-                                </div>
-                                <div className="mb-4">
-                                    <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">Email:</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-main"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label htmlFor="phone" className="block text-gray-700 font-semibold mb-2">Phone:</label>
-                                    <input
-                                        type="text"
-                                        id="phone"
-                                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-main"
-                                        value={phone}
-                                        onChange={(e) => setPhone(e.target.value)}
-                                        required
-                                    />
                                 </div>
                                 <button type="submit" className="bg-main/80 duration-200 text-white py-2 px-4 rounded-lg hover:bg-main focus:outline-none focus:bg-main/90">Submit Offer</button>
                             </form>

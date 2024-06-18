@@ -11,6 +11,7 @@ const Footer = () => {
                     <div className="col-span-1">
                         <Link to="/">
                             <img src="/logo-main.png" alt="Logo" className="w-24 h-auto" />
+                            <h1 className="text-3xl font-bold text-main uppercase">Recycle</h1>
                         </Link>
                     </div>
                     <div className="col-span-1">
@@ -40,7 +41,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-                <div className="mt-8 text-center">
+                <div className="mt-8 text-center border-t pt-4">
                     <p className="text-gray-400">© 2024 Your Website. All rights reserved.</p>
                 </div>
             </div>

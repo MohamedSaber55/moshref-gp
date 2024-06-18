@@ -3,26 +3,33 @@ import { Link } from "react-router-dom"
 import { TfiClose } from 'react-icons/tfi';
 import { VscMenu } from 'react-icons/vsc'
 import AddOrderModal from "./AddOrderModal";
+import { logout } from "../store/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 const Navbar = () => {
     const [navOpen, setNavOpen] = useState(false)
+    const dispatch = useDispatch()
     const links = [
         { title: "Home", to: "/" },
         { title: "About", to: "/about" },
         { title: "Team", to: "/team" },
-        { title: "Contact", to: "/contact" },
+        // { title: "Contact", to: "/contact" },
     ]
     const [showPopup, setShowPopup] = useState(false);
     const togglePopup = () => {
         setShowPopup(!showPopup);
     };
+    const handleLogout = () => {
+        dispatch(logout())
+    }
+
     return (
         <nav className="shadow h-16 relative z-50">
             <div className="h-full container flex justify-between items-center bg-white">
                 <div className="logo">
                     <Link to={"/"} className="flex items-center justify-center gap-1">
                         <img src="/logo-main.png" alt="Logo" className="w-14 h-auto" />
-                        <h1 className="text-3xl font-bold text-main">Logo</h1>
+                        <h1 className="text-3xl font-bold text-main uppercase">Recycle</h1>
                     </Link>
                 </div>
                 <div className="links hidden sm:flex items-center justify-center gap-5">
@@ -30,9 +37,11 @@ const Navbar = () => {
                         <Link key={link.title} to={link.to} className="font-medium hover:text-main duration-300" >{link.title}</Link>
                     ))}
                     <button onClick={togglePopup} className="text-sm bg-main p-2 rounded-md text-white">Add Order</button>
+                    <button onClick={handleLogout} className="text-sm border border-main text-main p-2 rounded-md">Logout</button>
                 </div>
                 <div className="mobile-btn sm:hidden flex items-center gap-3">
                     <button onClick={togglePopup} className="text-sm bg-main p-2 rounded-md text-white">Add Order</button>
+                    <button onClick={handleLogout} className="text-sm border border-main text-main p-2 rounded-md">Logout</button>
                     <div className="">
                         <button onClick={() => setNavOpen(!navOpen)} className="text-2xl">
                             {navOpen ? <TfiClose /> : <VscMenu />}
