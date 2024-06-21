@@ -73,16 +73,16 @@ export const login = createAsyncThunk("user/login", async (body, { rejectWithVal
             localStorage.setItem("moshUserId", data.userId)
             localStorage.setItem("moshRole", data.roles[0])
         }
-        if (typeof data === 'string') {
-            if (data.includes("There is no Account with Email")) {
+        return data;
+    } catch (error) {
+        if (typeof error.response.data == 'string') {
+            if (error.response.data.includes("There is no Account with Email")) {
                 notify('There is no Account with Email', 'error')
             }
-            if (data.includes("Wrong Password!")) {
+            if (error.response.data == "Wrong Password!") {
                 notify('Wrong Password!', 'error')
             }
         }
-        return data;
-    } catch (error) {
         return rejectWithValue(error.response.data);
     }
 });
