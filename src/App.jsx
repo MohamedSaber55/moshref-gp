@@ -13,6 +13,7 @@ import Contact from "./pages/Contact"
 import { ToastContainer } from "react-toastify"
 import ConfirmEmail from "./pages/ConfirmEmail"
 import ProtectedRoutes from "./components/ProtectedRouter"
+import Profile from "./pages/Profile"
 function App() {
 
   const routes = createBrowserRouter([{
@@ -21,6 +22,7 @@ function App() {
       { path: "/about", element: <About /> },
       { path: "/contact", element: <Contact /> },
       { path: "/team", element: <Team /> },
+      { path: "/profile", element: <Profile /> },
       { path: "/orders/:orderId", element: <Order /> },
     ]
   }, { path: "/login", element: <Login /> },

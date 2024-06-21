@@ -7,17 +7,25 @@ const notify = (msg, type) => toast[type](msg);
 
 export const register = createAsyncThunk("user/register", async (body, { rejectWithValue }) => {
     try {
-        // Create a FormData object and append each field
+        // // Create a FormData object and append each field
+        // const formData = new FormData();
+        // formData.append('ConfirmPassword', body.ConfirmPassword);
+        // formData.append('Email', body.Email);
+        // formData.append('FName', body.FName);
+        // formData.append('LName', body.LName);
+        // formData.append('Password', body.Password);
+        // formData.append('PhoneNumber', body.PhoneNumber);
+        // formData.append('Profession', body?.Profession);
+        // formData.append('RegisteredAs', body.RegisteredAs);
+        // formData.append('UserName', body.UserName);
         const formData = new FormData();
-        formData.append('ConfirmPassword', body.ConfirmPassword);
-        formData.append('Email', body.Email);
-        formData.append('FName', body.FName);
-        formData.append('LName', body.LName);
-        formData.append('Password', body.Password);
-        formData.append('PhoneNumber', body.PhoneNumber);
-        formData.append('RegisteredAs', body.RegisteredAs);
-        formData.append('UserName', body.UserName);
 
+        // Iterate over keys in body object and append to formData
+        for (const key in body) {
+            if (Object.prototype.hasOwnProperty.call(body, key)) {
+                formData.append(key, body[key]);
+            }
+        }
 
         const { data } = await axios.post(`${baseUrl}/Account/Register`, formData);
         if (data == "Check your email to get Confirm code") {

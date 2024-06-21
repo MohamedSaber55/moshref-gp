@@ -120,7 +120,7 @@ const Order = () => {
                                             </div>
                                             <div className="actions flex gap-2 items-center">
                                                 <button className="p-2 rounded-md text-sm text-white bg-main/80 border border-main">Accept</button>
-                                                <button className="p-2 rounded-md text-sm text-white bg-red-500 border border-red-800">Refuse</button>
+                                                {/* <button className="p-2 rounded-md text-sm text-white bg-red-500 border border-red-800">Refuse</button> */}
                                             </div>
                                         </div>
                                     </div>

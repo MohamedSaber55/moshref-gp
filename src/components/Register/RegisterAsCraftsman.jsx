@@ -17,6 +17,7 @@ const RegisterAsCraftsman = () => {
         FName: string().required(),
         LName: string().required(),
         UserName: string().required(),
+        Profession: string().required(),
         PhoneNumber: string().required(),
         Email: string().email().required(),
         Password: string().required(),
@@ -32,6 +33,7 @@ const RegisterAsCraftsman = () => {
             Email: "",
             Password: "",
             ConfirmPassword: "",
+            Profession: "",
             RegisteredAs: "CraftMan",
         },
         validationSchema,
@@ -84,6 +86,14 @@ const RegisterAsCraftsman = () => {
                     onChange={registerCraftsman.handleChange} name='PhoneNumber' type="text" id='PhoneNumber' className="p-3 border rounded-2xl border-black outline-none bg-transparent" placeholder="PhoneNumber" />
                 {registerCraftsman.errors.PhoneNumber && registerCraftsman.touched.PhoneNumber ?
                     <div className=" py-1 text-warning">{registerCraftsman.errors.PhoneNumber}</div>
+                    : ""
+                }
+                <label htmlFor="Profession" className='text-xl font-medium'>Profession</label>
+                <input onBlur={registerCraftsman.handleBlur}
+                    value={registerCraftsman.values.Profession}
+                    onChange={registerCraftsman.handleChange} name='Profession' type="text" id='Profession' className="p-3 border rounded-2xl border-black outline-none bg-transparent" placeholder="Profession" />
+                {registerCraftsman.errors.Profession && registerCraftsman.touched.Profession ?
+                    <div className=" py-1 text-warning">{registerCraftsman.errors.Profession}</div>
                     : ""
                 }
                 <label htmlFor="Email" className='text-xl font-medium'>Email</label>

@@ -13,6 +13,7 @@ const Navbar = () => {
         { title: "Home", to: "/" },
         { title: "About", to: "/about" },
         { title: "Team", to: "/team" },
+        { title: "Profile", to: "/profile" },
         // { title: "Contact", to: "/contact" },
     ]
     const [showPopup, setShowPopup] = useState(false);
